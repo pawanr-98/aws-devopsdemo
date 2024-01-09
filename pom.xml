@@ -77,7 +77,7 @@
   <repository>
     <id>collected-collected-release</id>
     <name>collected-collected-release</name>
-    <url>https://collected-675467602881.d.codeartifact.us-east-2.amazonaws.com/maven/collected-release/</url>
+    <url>https://collected-675467602881.d.codeartifact.us-east-1.amazonaws.com/maven/collected-release/</url>
   </repository>
 </distributionManagement>
 </project>
