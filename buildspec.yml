@@ -1,15 +1,26 @@
-version: 0.1
-
+version: 0.2
+env: 
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"
 phases:
-  build:
+  install:
     commands:
-      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain collected --domain-owner 675467602881 --region us-east-2 --query authorizationToken --output text`
-      - echo Build started on `date`
-      - sed -i 's/aaaaaa/${CODEARTIFACT_AUTH_TOKEN}/g' settings.xml
-      - mvn -s settings.xml clean deploy
-  post_build:
+    - echo installing maven
+    - apt-get update -y
+    - apt-get install openjdk-11-jdk-y
+    - java -version
+    - apt-get install -y maven
+  build: 
     commands:
-      - echo Build completed on `date`
+    - echo building test-app
+    - mvn deploy
 artifacts:
   files:
-    - target/collected-1.0-SNAPSHOT.jar
+  - target/*.jar
+  - scripts/*.sh
+  - appspec.yml
+  discard-paths:yes
+
+cache:
+  paths:
+  - 'root/.m2/**/*'
